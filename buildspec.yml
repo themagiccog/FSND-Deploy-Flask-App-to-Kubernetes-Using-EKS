@@ -1,8 +1,5 @@
 ---
 version: 0.2
-env:
-   parameter-store:
-     JWT_SECRET: JWT_SECRET
 phases:
   install:
     commands:
@@ -29,7 +26,7 @@ phases:
       - export AWS_SECRET_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
       - export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
       - export AWS_EXPIRATION=$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')
-      - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --no-verify-ssl
+      - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
       - echo $JWT_SECRET > .env
       - kubectl apply -f simple-jwt-api.yml
       - printf '[{"name":"simple_jwt_api","imageUri":"%s"}]' $REPOSITORY_URI:$TAG > build.json
@@ -37,4 +34,6 @@ phases:
       - ls
 artifacts:
   files: build.json
-
+env:
+   parameter-store:
+     JWT_SECRET: JWT_SECRET
