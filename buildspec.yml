@@ -14,7 +14,7 @@ phases:
         - sed -i 's@CONTAINER_IMAGE@'"$REPOSITORY_URI:$TAG"'@' simple-jwt-api.yml
         - sed -i 's@JWT_SECRET_VALUE@'"$JWT_SECRET"'@' simple-jwt-api.yml
         - $(aws ecr get-login --no-include-email)
-        - export KUBECONFIG=$HOME/.kube/config
+        - export KUBECONFIG=$HOME/.kube/config 
       commands:
         - pip3 install -r requirements.txt 
         - python3 -m pytest test_main.py
