@@ -2,8 +2,8 @@
 version: 0.2
 phases:
   install:
-    runtime-versions:
-      python: 3.7
+    runtime version:
+      python:3.7
     commands:
       - curl -o aws-iam-authenticator https://amazon-eks.s3.us-west-2.amazonaws.com/1.17.12/2020-11-02/bin/linux/amd64/aws-iam-authenticator
       - curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.17.12/2020-11-02/bin/linux/amd64/kubectl
@@ -19,7 +19,7 @@ phases:
         - export KUBECONFIG=$HOME/.kube/config 
         - pip install --upgrade
         - pip install -r requirements.txt
-        - python pytest test_main.py
+        - pytest test_main.py
   build:
     commands:
       - docker build --tag $REPOSITORY_URI:$TAG .
