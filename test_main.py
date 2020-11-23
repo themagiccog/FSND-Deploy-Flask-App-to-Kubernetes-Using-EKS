@@ -5,6 +5,7 @@ import os
 import json
 import pytest
 
+import main
 # import main as __init__
 
 SECRET = 'TestSecret'
